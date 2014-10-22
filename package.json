@@ -1,0 +1,23 @@
+{
+  "author": "Dean Collins <lookaflyingdonkey@icloud.com>",
+  "name": "ah-mongoose-plugin",
+  "description": "Sets up a MongoDB connection using mongoose and attachs models/schemas",
+  "version": "0.0.1",
+  "homepage": "http://dblog.com.au",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:lookaflyingdonkey/ah-mongoose-plugin.git"
+  },
+  "keywords": ["actionhero", "mongoose", "mongodb", "node"],
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "dependencies": {
+    "mongoose": "^3.8.14",
+    "mkdirp": "^0.3.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "postinstall": "scripts/postinstall.js"
+  }
+}
