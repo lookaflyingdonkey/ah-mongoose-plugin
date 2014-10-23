@@ -7,21 +7,17 @@ exports.mongoose = function(api, next) {
   api.mongoose = {
     mongoose: mongoose,
     connection: null,
-    models: {},
+    models: null,
     _start: function(api, next) {
       next();
     },
     _teardown: function(api, next) {
       next();
     },
-    connect: function(next) {
-      if(api.config.mongoose.debug) {
-        api.mongoose.mongoose.set('debug', true);
+    init: function(callback) {
+      if(api.mongoose.models === null) {
+        api.mongoose.models = {};
       }
-      api.mongoose.mongoose.connect(api.config.mongoose.connection_string);
-      api.mongoose.connection = mongoose.connection;
-      api.mongoose.connection.on('error', console.error.bind(console, 'mongoose error:'));
-      
       var dir = path.normalize(api.config.mongoose.model_path);
       fs.readdirSync(dir).forEach(function(file) {
         var nameParts = file.split("/");
@@ -31,6 +27,18 @@ exports.mongoose = function(api, next) {
         }
         api.mongoose.models[name] = require(api.config.mongoose.model_path + '/' + file);
       });
+      callback();
+    },
+    connect: function(callback) {
+      if(api.config.mongoose.debug) {
+        api.mongoose.mongoose.set('debug', true);
+      }
+      if(api.mongoose.models === null) {
+        api.mongoose.init();
+      }
+      api.mongoose.mongoose.connect(api.config.mongoose.connection_string);
+      api.mongoose.connection = mongoose.connection;
+      api.mongoose.connection.on('error', console.error.bind(console, 'mongoose error:'));
     },
     disconnect: function(callback) {
       api.mongoose.mongoose.disconnect(callback);
