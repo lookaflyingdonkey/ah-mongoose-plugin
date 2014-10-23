@@ -4,16 +4,10 @@ var mongoose = require('mongoose');
 
 exports.mongoose = function(api, next) {
   
-  var Schema = mongoose.Schema;
-  var Types = mongoose.Schema.Types;
-  
   api.mongoose = {
     mongoose: mongoose,
     connection: null,
     models: {},
-    schemas: {
-      user: null
-    },
     _start: function(api, next) {
       next();
     },
