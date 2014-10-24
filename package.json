@@ -2,7 +2,7 @@
   "author": "Dean Collins <lookaflyingdonkey@icloud.com>",
   "name": "ah-mongoose-plugin",
   "description": "Sets up a MongoDB connection using mongoose and attachs models/schemas",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "homepage": "http://dblog.com.au",
   "repository": {
     "type": "git",

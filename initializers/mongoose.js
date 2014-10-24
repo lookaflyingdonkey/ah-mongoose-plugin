@@ -9,6 +9,10 @@ exports.mongoose = function(api, next) {
     connection: null,
     models: null,
     _start: function(api, next) {
+      if(api.config.mongoose.auto_start) {
+        api.mongoose.connect(function() {
+        });
+      }
       next();
     },
     _teardown: function(api, next) {
@@ -34,7 +38,7 @@ exports.mongoose = function(api, next) {
         api.mongoose.mongoose.set('debug', true);
       }
       if(api.mongoose.models === null) {
-        api.mongoose.init();
+        api.mongoose.init(function(){});
       }
       api.mongoose.mongoose.connect(api.config.mongoose.connection_string);
       api.mongoose.connection = mongoose.connection;
